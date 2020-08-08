@@ -1,7 +1,6 @@
 #include "ParserManager.h"
 
-namespace parser
-{
+
   ParserManager::ParserManager()
   {
     parser = nullptr;
@@ -21,14 +20,9 @@ namespace parser
     parser->parse(file);
   }
 
-  void ParserManager::write(const std::string & filename, const std::set<Position> & visited,
-    const std::set<Position> & cleaned, const Position & finalPos, const char & direction, int battery)
+  City ParserManager::getCity()
   {
-    if(endsWith(filename, "json") && parser == nullptr ){
-      parser = new JsonParser();
-    }
-
-    parser->write(filename, visited, cleaned, finalPos, direction, battery);
+    return parser->getCity();
   }
 
   bool ParserManager::endsWith(const std::string & s, const std::string & suffix)
@@ -38,34 +32,3 @@ namespace parser
     }
     return std::equal(suffix.rbegin(), suffix.rend(),s.rbegin());
   }
-
-  int ParserManager::getBattery()
-  {
-    return parser->getBattery();
-  }
-  
-  int ParserManager::getPositionX()
-  {
-    return parser->getPointX();
-  }
-  
-  int ParserManager::getPositionY()
-  {
-    return parser->getPointY();
-  }
-
-  Direction ParserManager::getDirection()
-  {
-    return parser->getDirection();
-  }
-
-  Room ParserManager::getRoom()
-  {
-    return parser->getRoom();
-  }
-
-  CommandList ParserManager::getCommands()
-  {
-    return std::move(parser->getCommands());
-  }
-}

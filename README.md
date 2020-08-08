@@ -26,4 +26,4 @@ Install:
 3. Run `cmake -s . -B <output_folder_build> -DBOOST_ROOT=<boost_path>` Ex. `cmake -s . -B build -DBOOST_ROOT=/usr/lib/boost `
 4. Go to build folder
 5. Run `make`: it will create the executable file "cleaning_robot" inside build folder
-6. Run `./cleaning_robot <source_file> <result_file>`
+6. Run `./sunlighthours <source_file> <result_file>`

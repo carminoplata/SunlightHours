@@ -2,8 +2,6 @@
 #include <iostream>
 #include <string>
 
-namespace parser
-{
   class InvalidJsonFile : public std::exception
   {
   private:
@@ -45,5 +43,5 @@ namespace parser
       std::cout << "Impossible generate " << filename << ": " << message << std::endl;
     }
   };
-}
+
 

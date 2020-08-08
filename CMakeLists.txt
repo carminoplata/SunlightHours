@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(SunlightHours VERSION 0.1.0)
+project(sunlighthours VERSION 0.1.0)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -29,18 +29,18 @@ endif()
 #include(CTest)
 #enable_testing()
 
-include_directories(include)
+
 file(GLOB_RECURSE HEADER_FILES include/public/*.h)
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
 
 add_definitions(-DBOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE)
-add_subdirectory(Utils)
-add_subdirectory(Parser)
-add_subdirectory(Robot)
+add_subdirectory(city)
+add_subdirectory(parser)
+add_subdirectory(api)
 
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
-target_link_libraries(${PROJECT_NAME} PUBLIC sunlighthours)
+target_link_libraries(${PROJECT_NAME} PUBLIC api)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/public)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
