@@ -48,4 +48,12 @@ set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
 #used for create the binary package after installation into program files
-#install(TARGETS cleaning_robot DESTINATION bin)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  set(OUTPUT bin\windows)
+elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  set(OUTPUT bin/linux)
+elseif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  set(OUTPUT bin/osx)
+endif()
+
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/${OUTPUT})

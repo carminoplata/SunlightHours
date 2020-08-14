@@ -17,12 +17,10 @@ void validateInput(int argc ,char* argv[], std::string & source)
 
 int main(int argc , char* argv[])
 {
-  std::cout << "Hello, SunlightHours!\n";
-
   try {
     std::string source;
     validateInput(argc, argv, source);
-    std::cout << "Load data from " << source << std::endl;
+    std::cout << "Loadind data from " << source <<  "..." << std::endl;
     SunlightHours processHours;
     processHours.init(source);
     std::cout << "Loading completed!" << std::endl;
