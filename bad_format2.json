@@ -1,0 +1,30 @@
+{
+  "city":[
+    {
+      "neighborhood": "Poblenou",
+      "apartments_height": "5",
+      "buildings": [
+        {
+          "name": "Aticco",
+          "apartments_count": "fdsfds",
+          "distance": 100
+        },
+        {
+          "name": "01",
+          "apartments_count": 4,
+          "distance": 200
+        },
+        {
+          "name": "CEM",
+          "apartments_count": 7,
+          "distance": 50
+        },
+        {
+          "name": "30",
+          "apartments_count": 1,
+          "distance": 5.34
+        }
+      ]
+    }
+  ]
+}
