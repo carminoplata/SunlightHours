@@ -1,5 +1,6 @@
 #include <exception>
 #include <iostream>
+#include <sstream>
 #include <string>
 
   class InvalidJsonFile : public std::exception
@@ -10,16 +11,18 @@
 
   public:
     InvalidJsonFile(){}
-    InvalidJsonFile(const std::string & filename, const std::string message)
+    InvalidJsonFile(const std::string & filename, const std::string & message)
       : filename{filename}
       , message{message}
     {
     }
 
     ~InvalidJsonFile(){}
-    void printError()
+    std::string getError()
     {
-      std::cout << "Error parsing file " << filename << ": " << message << std::endl;
+      std::stringstream ss;
+      ss << "Error parsing file " << filename << ": " << message;
+      return ss.str();
     }
   };
 
@@ -28,19 +31,23 @@
   private:
     std::string filename;
     std::string message;
+    std::string field;
 
   public:
     InvalidData(){}
-    InvalidData(const std::string & filename, const std::string message)
+    InvalidData(const std::string & filename, const std::string & message, const std::string & field)
       : filename{filename}
       , message{message}
+      , field{field}
     {
     }
 
     ~InvalidData(){}
-    void printError()
+    std::string getError()
     {
-      std::cout << "Impossible generate " << filename << ": " << message << std::endl;
+      std::stringstream ss;
+      ss << message << field;
+      return ss.str();
     }
   };
 

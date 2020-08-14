@@ -14,8 +14,8 @@ class JsonParser : public Parser {
   JsonParser() = default;
   ~JsonParser();
 
-  void parse(const std::string& file) override;
+  void parse(const std::string& file, City & city) override;
 
  private:
-  void parseAndValidateData(const std::string& file);
+  void parseAndValidateData(const std::string& file, City & city);
 };

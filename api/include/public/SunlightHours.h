@@ -1,11 +1,15 @@
+#ifndef SUNLIGHTHOURS_H
+#define SUNLIGHTHOURS_H
+
 #include <string>
 #include <ParserManager.h>
+
 
 class SunlightHours
 {
 private:
   ParserManager manager;
-
+  City city;
 public:
   SunlightHours() = default;
   ~SunlightHours();
@@ -17,6 +21,11 @@ public:
   std::string getSunlightHours(const std::string & neighbourhood, const std::string & building, int apt);
 
 private:
-  void loadFile(std::string filename);
   bool isValidFile(const std::string & filename);
+  double calculateSunlightEast(int building, int apt, const Neighborhood & district);
+  double calculateSunlightWest(int building, int apt, double start, const Neighborhood & district);
+  double calculateSunHeight(double hourAngle);
+  double getShadow(double aptHeight, double sunHeight);
 };
+
+#endif

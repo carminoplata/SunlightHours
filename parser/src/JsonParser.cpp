@@ -8,10 +8,10 @@
 
 JsonParser::~JsonParser() {}
 
-void JsonParser::parse(const std::string& file) {
+void JsonParser::parse(const std::string& file, City & city) {
   try {
     pt::json_parser::read_json(file, jsonTree);
-    parseAndValidateData(file);
+    parseAndValidateData(file, city);
   } catch (pt::json_parser::json_parser_error& e) {
     throw InvalidJsonFile(file, e.message());
   } catch (pt::ptree_bad_data& e) {
@@ -23,18 +23,25 @@ void JsonParser::parse(const std::string& file) {
   }
 }
 
-void JsonParser::parseAndValidateData(const std::string& file) {
+void JsonParser::parseAndValidateData(const std::string& file, City & city) {
   auto cityTree = jsonTree.get_child("city");
 
-  try {
     for (auto it = cityTree.begin(); it != cityTree.end(); it++) {
       std::string district;
-      int aptHeight;
+      float aptHeight;
       for (auto nit = it->second.begin(); nit != it->second.end(); nit++) {
         if (nit->first == "neighborhood") {
           district = nit->second.data();
         } else if (nit->first == "apartments_height") {
-          aptHeight = std::stoi(nit->second.data());
+          try{
+            aptHeight = std::stof(nit->second.data());
+            if(aptHeight <= 0)
+            {
+              throw InvalidData(file, "bad value ", nit->first);
+            }
+          }catch(std::exception & e){
+            throw InvalidData(file, "bad value ", nit->first);
+          }
         } else if (nit->first == "buildings") {
           Neighborhood neighborhood(district, aptHeight);
           auto buildings = nit->second.begin();
@@ -47,23 +54,28 @@ void JsonParser::parseAndValidateData(const std::string& file) {
               if (buildIt->first == "name") {
                 name = buildIt->second.data();
               } else if (buildIt->first == "apartments_count") {
-                numApt = std::stoi(buildIt->second.data());
+                try{
+                  numApt = std::stoi(buildIt->second.data());
+                }catch(std::exception & e){
+                  throw InvalidData(file, "bad value ", buildIt->first);
+                }
               } else if (buildIt->first == "distance") {
-                distance = std::stof(buildIt->second.data());
-                neighborhood.add({name, numApt, distance});
+                try{
+                  distance = std::stof(buildIt->second.data());
+                  neighborhood.add({name, numApt, distance, aptHeight});
+                }catch(std::exception & e){
+                  throw InvalidData(file, "bad value ", buildIt->first);
+                }
               } else {
                 throw InvalidData(file,
-                                  "Unknown building field " + buildIt->first);
+                                  "Unknown building field ", buildIt->first);
               }
             }
           }
           city.add(std::move(neighborhood));
         } else {
-          throw InvalidData(file, "Unknown neighborhood field " + nit->first);
+          throw InvalidData(file, "Unknown neighborhood field ", nit->first);
         }
       }
     }
-  } catch (std::exception& e) {
-    throw InvalidData(file, e.what());
-  }
 }

@@ -7,8 +7,8 @@ class ParserManager {
  public:
   ParserManager();
   ~ParserManager();
-  void parse(const std::string& file);
-  City getCity();
+  void parse(const std::string& file, City & city);
+
 
  private:
   bool endsWith(const std::string& s, const std::string& suffix);

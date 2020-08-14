@@ -11,20 +11,15 @@
     //delete parser;
   }
   
-  void ParserManager::parse(const std::string & file)
+  void ParserManager::parse(const std::string & file, City & city)
   {
     if(endsWith(file, "json") && parser == nullptr){
       parser = new JsonParser();
     }
 
-    parser->parse(file);
+    return parser->parse(file, city);
   }
-
-  City ParserManager::getCity()
-  {
-    return parser->getCity();
-  }
-
+  
   bool ParserManager::endsWith(const std::string & s, const std::string & suffix)
   {
     if(s.size() < suffix.size()){

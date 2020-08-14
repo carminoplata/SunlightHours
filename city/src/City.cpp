@@ -34,3 +34,15 @@ bool City::isEmpty() const
 {
   return districts.empty();
 }
+
+Neighborhood* City::findNeighborhood(const std::string& name){
+  if(districts.empty()){
+    return nullptr;
+  }
+
+  auto it = std::find_if(districts.begin(), districts.end(), [&name](const Neighborhood & n){
+    return n.getName() == name;
+  });
+
+  return it!=districts.end() ? it.base() : nullptr;
+}

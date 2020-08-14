@@ -24,11 +24,22 @@ int main(int argc , char* argv[])
     validateInput(argc, argv, source);
     std::cout << "Load data from " << source << std::endl;
     SunlightHours processHours;
-
     processHours.init(source);
     std::cout << "Loading completed!" << std::endl;
-  }catch(InvalidFile & e)
-  {
+    std::cout << "Sunlight Hours for building Aticco apt 5: "; 
+    std::cout << processHours.getSunlightHours("Poblenou", "Aticco", 5) << std::endl;
+    std::cout << "Sunlight Hours for building 01 apt 1: ";
+    std::cout << processHours.getSunlightHours("Poblenou", "01", 1) << std::endl;
+    std::cout << "Sunlight Hours for building Aticco apt 7: ";
+    std::cout << processHours.getSunlightHours("Poblenou", "Aticco", 7) << std::endl;
+    std::cout << "Sunlight Hours for building 30 apt 0: ";
+    std::cout << processHours.getSunlightHours("Poblenou", "30", 0) << std::endl;
+    std::cout << "Sunlight Hours for building CEM apt 5: ";
+    std::cout << processHours.getSunlightHours("Poblenou", "CEM", 5) << std::endl;
+    
+  }catch(InvalidFile & e){
+    e.printError();
+  }catch(InvalidInput & e){
     e.printError();
   }
 }

@@ -1,47 +1,28 @@
 #include <exception>
 #include <string>
 
-class InvalidCommand: public std::exception
+class InvalidBuilding: public std::exception
 {
 private:
-  std::string value;
+  std::string message;
 public:
-  InvalidCommand(const std::string & value) : value{value}
+  InvalidBuilding(const std::string & message) : message{message}
   {
   }
-  ~InvalidCommand(){}
+  ~InvalidBuilding(){}
 
-  std::string getError(){return "Invalid command : " + value;};
+  std::string getError(){return "Invalid building " + message;};
 };
 
-class InvalidCell: public std::exception
+class InvalidApt: public std::exception
 {
 private:
-  std::string value;
+  std::string message;
 public:
-  InvalidCell(const std::string & value) : value{value}
+  InvalidApt(const std::string & message) : message{message}
   {
   }
-  ~InvalidCell(){}
+  ~InvalidApt(){}
 
-  std::string getError(){return "Invalid cell : " + value;};
-};
-
-class PositionOutOfRange: public std::exception
-{
-private:
-  int x;
-  int y;
-public:
-  PositionOutOfRange(int x, int y) 
-  : x{x}
-  , y{y}
-  {
-  }
-  ~PositionOutOfRange(){}
-
-  std::string getError()
-  {
-    return "Position out of the map's range : (" + std::to_string(x) + "," + std::to_string(y) + ")";
-  };
+  std::string getError(){return "Invalid apartment : " + message;};
 };

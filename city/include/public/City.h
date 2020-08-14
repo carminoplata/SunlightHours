@@ -24,6 +24,7 @@ public:
   bool isEmpty() const;
   void add(Neighborhood neighborhood);
   std::vector<Neighborhood> getNeighborhood();
+  Neighborhood* findNeighborhood(const std::string& name);
 private:
 };
 
